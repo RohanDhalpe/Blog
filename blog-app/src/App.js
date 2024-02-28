@@ -1,23 +1,26 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from "react";
+import BlogList from "./components/BlogList";
+import BlogForm from "./components/BlogForm";
 
 function App() {
+  const [blogs, setBlogs] = useState([
+    { id: 1, title: "Blog 1", content: "Content of the 1 blog..." }
+  ]);
+  
+  const addBlog = (blog) => {
+    setBlogs([...blogs, blog]); 
+  };
+  
+  const deleteBlog = (id) => {
+    setBlogs(blogs.filter((blog) => blog.id !== id));
+  };
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <h1>My Blog App</h1>
+      <BlogList blogs={blogs} deleteBlog={deleteBlog} />
+      <BlogForm addBlog={addBlog} />
+      
     </div>
   );
 }
